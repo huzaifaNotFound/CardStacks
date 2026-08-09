@@ -1,11 +1,7 @@
 /**
- * Small 1-bit Mac-style icons for the Home launcher tiles.
- * 16x16 pixel grid, drawn with rects. `currentColor` not needed — fixed black.
+ * 1-bit Mac-style icon tiles for the Home launcher.
+ * 16x16 pixel grid, bold fills, recognizable at ~20px display.
  */
-
-const P = (x: number, y: number, w = 1, h = 1) => (
-  <rect key={`${x}-${y}-${w}-${h}`} x={x} y={y} width={w} height={h} />
-)
 
 const svg = (children: React.ReactNode) => (
   <svg viewBox="0 0 16 16" shapeRendering="crispEdges" fill="#000">
@@ -13,135 +9,112 @@ const svg = (children: React.ReactNode) => (
   </svg>
 )
 
-/** Birthday cake. */
+const px = (x: number, y: number, w = 1, h = 1) => (
+  <rect key={`${x}-${y}-${w}-${h}`} x={x} y={y} width={w} height={h} />
+)
+
+/** Birthday cake — bold. */
 export const IconCake = () =>
   svg(
     <>
-      {P(2, 11, 12, 3)}
-      {P(3, 8, 10, 3)}
-      {P(4, 7, 8, 1)}
-      {P(4, 5, 1, 2)}
-      {P(8, 5, 1, 2)}
-      {P(11, 5, 1, 2)}
-      {P(4, 4, 2, 1)}
-      {P(8, 4, 2, 1)}
-      {P(11, 4, 2, 1)}
+      {px(4, 11, 8, 3)}
+      {px(3, 7, 10, 4)}
+      {px(2, 4, 12, 3)}
+      {px(4, 2, 2, 4)}
+      {px(10, 2, 2, 4)}
+      {px(4, 1, 2, 2)}
+      {px(10, 1, 2, 2)}
     </>,
   )
 
-/** Paper plane — choose your own adventure. */
+/** Paper plane — the adventure stack. */
 export const IconPlane = () =>
   svg(
     <>
-      {P(2, 9, 1, 2)}
-      {P(3, 8, 1, 3)}
-      {P(4, 7, 1, 3)}
-      {P(5, 6, 1, 3)}
-      {P(6, 5, 1, 3)}
-      {P(7, 4, 1, 3)}
-      {P(8, 3, 1, 4)}
-      {P(9, 2, 1, 5)}
-      {P(10, 3, 1, 5)}
-      {P(11, 4, 1, 4)}
-      {P(12, 5, 1, 3)}
-      {P(7, 7, 1, 2)}
-      {P(8, 9, 1, 2)}
-      {P(6, 10, 3, 1)}
-      {P(5, 11, 2, 1)}
+      {px(8, 2, 1, 1)}
+      {px(7, 3, 3, 1)}
+      {px(6, 4, 5, 1)}
+      {px(5, 5, 7, 1)}
+      {px(5, 6, 7, 1)}
+      {px(6, 7, 5, 1)}
+      {px(3, 11, 6, 1)}
+      {px(4, 10, 4, 1)}
+      {px(5, 9, 2, 1)}
     </>,
   )
 
-/** Notes pad. */
-export const IconNotes = () =>
-  svg(
-    <>
-      {P(3, 2, 10, 1)}
-      {P(3, 2, 1, 12)}
-      {P(3, 13, 10, 1)}
-      {P(12, 2, 1, 12)}
-      {P(5, 5, 6, 1)}
-      {P(5, 7, 6, 1)}
-      {P(5, 9, 6, 1)}
-      {P(5, 11, 4, 1)}
-    </>,
-  )
-
-/** Paint palette. */
-export const IconPalette = () =>
-  svg(
-    <>
-      {P(2, 4, 1, 8)}
-      {P(3, 3, 1, 10)}
-      {P(4, 2, 7, 1)}
-      {P(11, 3, 1, 2)}
-      {P(12, 4, 1, 1)}
-      {P(4, 12, 4, 1)}
-      {P(8, 11, 1, 2)}
-      {P(9, 10, 1, 1)}
-      {P(11, 2, 2, 1)}
-      {P(12, 3, 2, 1)}
-      {P(13, 4, 1, 2)}
-      {P(13, 6, 1, 2)}
-      {P(12, 8, 1, 1)}
-      {P(10, 9, 1, 1)}
-      {P(6, 6, 2, 2)}
-    </>,
-  )
-
-/** Checklist. */
-export const IconTodo = () =>
-  svg(
-    <>
-      {P(2, 3, 12, 1)}
-      {P(2, 3, 1, 10)}
-      {P(2, 12, 12, 1)}
-      {P(13, 3, 1, 10)}
-      {P(4, 6, 1, 1)}
-      {P(5, 7, 1, 1)}
-      {P(6, 6, 1, 1)}
-      {P(8, 5, 5, 1)}
-      {P(4, 10, 1, 1)}
-      {P(5, 11, 1, 1)}
-      {P(6, 10, 1, 1)}
-      {P(8, 9, 5, 1)}
-    </>,
-  )
-
-/** Folder / portfolio. */
-export const IconFolder = () =>
-  svg(
-    <>
-      {P(1, 4, 3, 1)}
-      {P(1, 4, 1, 9)}
-      {P(14, 4, 1, 9)}
-      {P(1, 12, 14, 1)}
-      {P(3, 5, 3, 1)}
-      {P(5, 6, 9, 1)}
-      {P(3, 5, 1, 7)}
-      {P(4, 5, 1, 7)}
-      {P(5, 6, 1, 6)}
-      {P(13, 6, 1, 6)}
-      {P(6, 6, 7, 1)}
-    </>,
-  )
-
-/** Rock / Paper / Scissors. */
+/** Rock — RPS icon. */
 export const IconRps = () =>
   svg(
     <>
-      {P(2, 6, 3, 1)}
-      {P(3, 5, 1, 2)}
-      {P(4, 7, 2, 3)}
-      {P(3, 10, 2, 3)}
-      {P(2, 11, 1, 2)}
-      {P(4, 13, 4, 1)}
-      {P(7, 3, 3, 3)}
-      {P(9, 6, 2, 4)}
-      {P(10, 4, 3, 3)}
-      {P(12, 7, 2, 3)}
-      {P(11, 10, 3, 3)}
-      {P(13, 12, 2, 1)}
-      {P(6, 11, 3, 3)}
+      {px(4, 4, 8, 2)}
+      {px(3, 6, 10, 4)}
+      {px(4, 10, 8, 2)}
+      {px(6, 6, 4, 2)}
+    </>,
+  )
+
+/** Notepad — clean lines. */
+export const IconNotes = () =>
+  svg(
+    <>
+      {px(3, 2, 10, 1)}
+      {px(3, 2, 1, 11)}
+      {px(12, 2, 1, 11)}
+      {px(3, 12, 10, 1)}
+      {px(5, 5, 6, 1)}
+      {px(5, 7, 6, 1)}
+      {px(5, 9, 4, 1)}
+    </>,
+  )
+
+/** Paintbrush — a diagonal brush. */
+export const IconPalette = () =>
+  svg(
+    <>
+      {px(2, 12, 2, 1)}
+      {px(3, 11, 2, 1)}
+      {px(4, 10, 2, 1)}
+      {px(5, 9, 2, 1)}
+      {px(6, 8, 2, 1)}
+      {px(7, 7, 2, 1)}
+      {px(8, 6, 2, 1)}
+      {px(9, 5, 2, 1)}
+      {px(10, 4, 2, 1)}
+      {px(11, 3, 2, 1)}
+      {px(12, 2, 2, 2)}
+    </>,
+  )
+
+/** Checklist — two rows with checkmarks. */
+export const IconTodo = () =>
+  svg(
+    <>
+      {px(3, 2, 12, 1)}
+      {px(3, 2, 1, 11)}
+      {px(13, 2, 1, 11)}
+      {px(3, 12, 12, 1)}
+      {px(5, 6, 1, 1)}
+      {px(6, 7, 1, 1)}
+      {px(7, 6, 1, 1)}
+      {px(9, 5, 4, 1)}
+      {px(5, 10, 1, 1)}
+      {px(6, 11, 1, 1)}
+      {px(7, 10, 1, 1)}
+      {px(9, 9, 4, 1)}
+    </>,
+  )
+
+/** Folder — portfolio icon. */
+export const IconFolder = () =>
+  svg(
+    <>
+      {px(2, 4, 12, 1)}
+      {px(2, 4, 1, 10)}
+      {px(13, 4, 1, 10)}
+      {px(2, 13, 12, 1)}
+      {px(4, 5, 1, 8)}
+      {px(5, 7, 1, 1)}
     </>,
   )
 

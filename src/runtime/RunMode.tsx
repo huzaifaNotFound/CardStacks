@@ -59,18 +59,29 @@ export default function RunMode() {
   return (
     <div className="run-root col">
       <div className="run-bar">
-        <button className="btn btn-sm" onClick={() => go(-1)} aria-label="Previous card">
-          ◀
+        <button className="run-close" onClick={() => setView('home')} title="Close and return Home" aria-label="Close">
+          ×
         </button>
-        <span className="run-count">
-          {count.i} / {count.n}
+        <span className="run-name nowrap" title={stack.name}>
+          {stack.name}
         </span>
-        <button className="btn btn-sm" onClick={() => go(1)} aria-label="Next card">
-          ▶
-        </button>
+        <span className="toolbar-sep" />
+        {count.n > 1 && (
+          <>
+            <button className="btn btn-sm" onClick={() => go(-1)} aria-label="Previous card">
+              ◀
+            </button>
+            <span className="run-count">
+              {count.i} / {count.n}
+            </span>
+            <button className="btn btn-sm" onClick={() => go(1)} aria-label="Next card">
+              ▶
+            </button>
+          </>
+        )}
         <span className="run-spacer" />
         <button className="btn btn-sm" onClick={() => setView('editor')}>
-          ⏹ Stop (Esc)
+          ⏹ Edit (Esc)
         </button>
       </div>
       <div className="run-stage desk">

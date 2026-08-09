@@ -159,7 +159,8 @@
   cursor: crosshair;
 }
 
-.w-canvas .cs-clear {
+.w-canvas .cs-clear,
+.w-image .cs-clear {
   position: absolute;
   top: 2px;
   right: 2px;
@@ -175,9 +176,33 @@
   padding: 0;
   cursor: pointer;
   box-shadow: 1px 1px 0 0 var(--black);
+  z-index: 2;
 }
 
-.w-canvas .cs-clear:hover {
+.w-canvas .cs-clear:hover,
+.w-image .cs-clear:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* Upload affordance for image widgets with `upload` set */
+.w-image-upload {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px dashed var(--black);
+  color: var(--black);
+  font-family: var(--font-chrome);
+  font-size: var(--fs-chrome-lg);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  padding: 0;
+}
+
+.w-image-upload:hover {
   background: var(--black);
   color: var(--white);
 }

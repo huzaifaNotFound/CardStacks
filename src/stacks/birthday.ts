@@ -1,5 +1,6 @@
 import type { Stack } from '../model/types'
 import { button, card, field, image, stack, text, goto, msg, setVar } from './helpers'
+import { CAKE_ART } from './art'
 
 /**
  * Birthday Card Maker.
@@ -24,7 +25,12 @@ export function birthdayStack(): Stack {
     field(180, 208, 340, 26, { bind: 'date', placeholder: 'e.g. August 8' }),
 
     text('Photo (optional)', 90, 244, 120, 16, { fontSize: 12 }),
-    image('{{' + photoVar + '}}', 180, 240, 160, 110, { upload: true, border: true, fit: 'contain' }),
+    image('{{' + photoVar + '}}', 180, 240, 160, 110, {
+      upload: true,
+      border: true,
+      fit: 'contain',
+      bind: photoVar,
+    }),
 
     button('MAKE CARD  →', 300, 320, 200, 40, [goto('card')], {
       style: 'default',
@@ -33,13 +39,14 @@ export function birthdayStack(): Stack {
   ], 'white', 'form')
 
   const cardView = card('Card', [
-    text('Happy Birthday, {{name}}!', 40, 60, 560, 48, { fontSize: 32, bold: true, align: 'center' }),
-    image('{{' + photoVar + '}}', 220, 120, 200, 140, { border: true, fit: 'contain' }),
-    text('{{message}}', 60, 270, 520, 40, { fontSize: 16, align: 'center' }),
-    text('celebrated on {{date}}', 60, 316, 520, 20, { fontSize: 13, align: 'center' }),
+    image(CAKE_ART, 244, 20, 152, 100, { border: false, fit: 'contain' }),
+    text('Happy Birthday, {{name}}!', 40, 124, 560, 40, { fontSize: 28, bold: true, align: 'center' }),
+    image('{{' + photoVar + '}}', 220, 168, 200, 110, { border: true, fit: 'contain' }),
+    text('{{message}}', 60, 292, 520, 28, { fontSize: 14, align: 'center' }),
+    text('celebrated on {{date}}', 60, 322, 520, 18, { fontSize: 12, align: 'center' }),
 
-    button('CONFETTI!', 160, 344, 140, 34, [setVar('confetti', '1'), msg('🎉 🎉 🎉\nHave a wonderful day!')]),
-    button('Back', 340, 344, 140, 34, [goto('form')]),
+    button('CONFETTI!', 160, 354, 140, 30, [setVar('confetti', '1'), msg('🎉 🎉 🎉\nHave a wonderful day!')]),
+    button('Back', 340, 354, 140, 30, [goto('form')]),
   ], 'white', 'card')
 
   return stack('Birthday Card Maker', [form, cardView], { name: '', message: '', date: '', photo: '' })

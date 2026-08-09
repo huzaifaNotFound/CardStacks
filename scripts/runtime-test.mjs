@@ -32,6 +32,7 @@ class NodeStub {
   setAttribute(k, v) { this.attrs[k] = v }
   setAttributeNS(_n, k, v) { this.attrs[k] = v }
   setPointerCapture() {}
+  click() {}
   getContext() { return null }
   getBoundingClientRect() { return { left: 0, top: 0, width: 0, height: 0 } }
   querySelector() { return null }
@@ -162,5 +163,58 @@ fieldEl.listeners.input[0]()
 const noteVal = rt4.getState().vars.note
 if (noteVal !== 'buy milk') throw new Error(`field bind failed: ${noteVal}`)
 console.log('VISIBILITY/BIND TEST OK (setVisibility by name + field.bind)')
+
+// Image upload: click "Upload Photo" -> widget.src + bind var updated, card re-renders
+{
+  const createdInputs = []
+  const origCreate = document.createElement
+  document.createElement = function (tag) {
+    const n = origCreate(tag)
+    if (tag === 'input') createdInputs.push(n)
+    return n
+  }
+  class FakeImage2 {
+    constructor() { this._src = ''; this.width = 40; this.height = 30 }
+    set src(v) { this._src = v; if (this.onload) this.onload() }
+    get src() { return this._src }
+  }
+  class FakeFileReader {
+    readAsDataURL() { this.result = 'data:image/png;base64,FAKEPHOTO'; if (this.onload) this.onload() }
+  }
+  globalThis.Image = FakeImage2
+  globalThis.FileReader = FakeFileReader
+
+  const stack5 = {
+    schema: 'cardstacks/1', id: 's5', name: 'Bday', size: { w: 200, h: 100 }, variables: { photo: '' },
+    cards: [{
+      id: 'c1', name: 'Form', background: 'white', events: [], widgets: [
+        { id: 'w1', type: 'image', x: 20, y: 20, w: 120, h: 80, visible: true, props: { src: '{{photo}}', fit: 'contain', border: true, upload: true, bind: 'photo' }, events: [] },
+      ],
+    }],
+  }
+  const root5 = new NodeStub('div')
+  const rt5 = globalThis.window.CardStacksRuntime.mount(root5, stack5, {})
+  const imgWrap = root5.children[0].children.find((w) => String(w.className).includes('w-image'))
+  const imgInner = imgWrap.children[0]
+  if (!String(imgInner.className).includes('w-image')) throw new Error('image inner not rendered')
+  const upBtn = imgInner.children[0]
+  if (!String(upBtn.className).includes('w-image-upload')) throw new Error('upload button not rendered')
+  upBtn.listeners.click[0]({ stopPropagation() {} })
+  const input = createdInputs.find((i) => i.type === 'file')
+  if (!input) throw new Error('file input not created')
+  input.files = [{ name: 'photo.png', size: 100 }]
+  input.onchange()
+  if (rt5.getState().vars.photo !== 'data:image/png;base64,FAKEPHOTO') {
+    throw new Error(`photo var not set: ${rt5.getState().vars.photo}`)
+  }
+  const widgetSrc = rt5.getState().stack.cards[0].widgets[0].props.src
+  if (widgetSrc !== 'data:image/png;base64,FAKEPHOTO') throw new Error('widget src not set')
+  const imgInDom = root5.children[0].children
+    .find((w) => String(w.className).includes('w-image'))
+    .children[0].children.some((c) => c.tag === 'img')
+  if (!imgInDom) throw new Error('re-render did not show the image')
+  console.log('UPLOAD TEST OK (image upload -> bind var + re-render)')
+  document.createElement = origCreate
+}
 
 console.log('ALL RUNTIME TESTS PASSED')

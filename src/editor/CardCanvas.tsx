@@ -333,6 +333,15 @@ export default function CardCanvas() {
 
         {showGrid && <div className="card-layer card-grid" />}
 
+        {card.widgets.length === 0 && tool === 'widgets' && (
+          <div className="card-empty">
+            <div className="card-empty-title">Empty card</div>
+            <div className="card-empty-hint">
+              Use the Card menu — New Text, New Button, New Field — to place widgets here.
+            </div>
+          </div>
+        )}
+
         {selected && (
           <div
             className="sel-overlay"

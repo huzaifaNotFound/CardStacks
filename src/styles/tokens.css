@@ -38,23 +38,23 @@
   --u8: 16px;
   --u12: 24px;
 
-  --font-chrome: 'Silkscreen', 'Chicago', 'Geneva', 'Courier New', monospace;
-  --font-card: 'Geneva', 'Verdana', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-chrome: 'Silkscreen', 'Chicago', 'Monaco', 'Courier New', monospace;
+  --font-card: 'Silkscreen', 'Monaco', 'Courier New', monospace;
   --font-mono: 'Monaco', 'Consolas', 'Courier New', monospace;
 
-  --fs-chrome: 8px;
-  --fs-chrome-lg: 10px;
-  --fs-menu: 10px;
+  --fs-chrome: 9px;
+  --fs-chrome-lg: 11px;
+  --fs-menu: 11px;
   --fs-card: 13px;
 
   --row-h: 18px;
-  --menubar-h: 22px;
+  --menubar-h: 24px;
   --toolbar-h: 30px;
-  --rail-w: 138px;
-  --inspector-w: 200px;
+  --rail-w: 132px;
+  --inspector-w: 196px;
   --palette-h: 42px;
 
-  --tool-size: 24px;
+  --tool-size: 23px;
 }
 
 * {

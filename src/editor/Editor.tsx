@@ -4,7 +4,6 @@ import Inspector from './Inspector/Inspector'
 import MenuBar from './MenuBar'
 import type { MenuCommands } from './MenuBar'
 import Toolbar from './Toolbar'
-import WidgetPalette from './WidgetPalette'
 
 export default function Editor({ cmd }: { cmd: MenuCommands }) {
   return (
@@ -17,8 +16,6 @@ export default function Editor({ cmd }: { cmd: MenuCommands }) {
         <CardCanvas />
         <Inspector />
       </div>
-
-      <WidgetPalette />
     </div>
   )
 }

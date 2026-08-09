@@ -246,8 +246,8 @@
         node.appendChild(dl)
       }
     } else if (p.upload) {
-      var up = el('button', 'cs-clear cs-upload', '\u2191')
-      up.title = 'Upload image'
+      var up = el('button', 'w-image-upload', '\u002b  Upload Photo')
+      up.title = 'Choose an image'
       up.addEventListener('click', function (e) {
         e.stopPropagation()
         uploadImage(widget, state, ctx)

@@ -93,11 +93,15 @@ export default function App() {
       onSaveStack,
       onExportHtml: () => exportStack(useStore.getState().stack),
       onRun: () => setView('run'),
-      onGoHome: () => setView('home'),
+      onGoHome: () => {
+        const s = useStore.getState()
+        if (s.view === 'editor' && s.dirty) saveStackToLocal(s.stack)
+        setView('home')
+      },
       onAbout: () =>
         setDialog({
-          title: 'CardStacks v0.1',
-          body: 'A modern HyperCard inspired software.',
+          title: 'About CardStacks',
+          body: 'CardStacks v0.1\n\nA modern HyperCard inspired software.\nMake stacks. Play them. Export them.',
         }),
     }
   }, [newStack, setView])

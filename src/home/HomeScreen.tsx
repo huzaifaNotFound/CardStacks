@@ -4,7 +4,7 @@ import type { MenuCommands } from '../editor/MenuBar'
 import { deleteStackFromLocal, loadIndex, loadStackFromLocal, type IndexEntry } from '../io/persist'
 import { EXAMPLES, type Example } from '../stacks/examples'
 import { validateStack } from '../model/validate'
-import { IconCard, IconTrash } from '../editor/icons'
+import { IconCard, IconLogo } from '../editor/icons'
 import { EXAMPLE_ICONS } from './icons'
 
 interface Props {
@@ -39,6 +39,7 @@ export default function HomeScreen({ cmd }: Props) {
     }
   }, [open])
 
+  /** Your saved stacks open in the editor, ready to edit. */
   const openStack = (s: ReturnType<typeof loadStackFromLocal>) => {
     if (!s) {
       setNotice('This stack could not be read from local storage.')
@@ -49,9 +50,10 @@ export default function HomeScreen({ cmd }: Props) {
     setView('editor')
   }
 
+  /** Example stacks open as standalone mini-apps, straight into Run mode. */
   const openExample = (ex: Example) => {
     loadStack(ex.make())
-    setView('editor')
+    setView('run')
   }
 
   const newStackAndGo = () => {
@@ -103,7 +105,12 @@ export default function HomeScreen({ cmd }: Props) {
   return (
     <div className="app-window home-window col">
       <div className="menubar" ref={barRef}>
-        <span className="menubar-title">CardStacks</span>
+        <button className="menubar-title home-btn" onClick={() => setView('home')} title="Home">
+          <span className="home-btn-mark">
+            <IconLogo />
+          </span>
+          CARDSTACKS
+        </button>
 
         {Object.keys(menus).map((name) => (
           <div key={name} style={{ position: 'relative', display: 'flex' }}>
@@ -127,10 +134,11 @@ export default function HomeScreen({ cmd }: Props) {
 
       <div className="home-body">
         <div className="home-logo">
-          <div className="home-wordmark">
-            Card<span className="wm-halftone">Stacks</span>
-          </div>
-          <div className="home-subtitle">A modern HyperCard inspired software</div>
+          <img
+            className="home-logo-img"
+            src="/logo/cardstacks-logo.png"
+            alt="CardStacks — a modern hypercard inspired software"
+          />
         </div>
 
         <div className="home-divider" />
@@ -141,7 +149,7 @@ export default function HomeScreen({ cmd }: Props) {
           <div className="home-section-label">Your Stacks</div>
           {saved.length === 0 ? (
             <div className="home-empty muted">
-              No stacks yet — open an example below or start a new stack.
+              No stacks yet. Play an example below, or start a new one.
             </div>
           ) : (
             <div className="home-tiles">
@@ -163,7 +171,7 @@ export default function HomeScreen({ cmd }: Props) {
                       remove(e.id)
                     }}
                   >
-                    <IconTrash />
+                    ×
                   </span>
                 </button>
               ))}
@@ -174,7 +182,7 @@ export default function HomeScreen({ cmd }: Props) {
         <div className="home-divider" />
 
         <div className="home-section">
-          <div className="home-section-label">Examples</div>
+          <div className="home-section-label">Examples — play them</div>
           <div className="home-tiles">
             {EXAMPLES.map((ex) => {
               const Icon = EXAMPLE_ICONS[ex.id] ?? null
@@ -183,7 +191,7 @@ export default function HomeScreen({ cmd }: Props) {
                   key={ex.id}
                   className="home-tile"
                   onClick={() => openExample(ex)}
-                  title={`Open ${ex.label}`}
+                  title={`Play ${ex.label}`}
                 >
                   <span className="home-tile-icon">{Icon && <Icon />}</span>
                   <span className="home-tile-label">{ex.label}</span>
