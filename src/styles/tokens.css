@@ -1,0 +1,93 @@
+/* CardStacks design tokens - 1-bit Macintosh */
+
+@font-face {
+  font-family: 'Silkscreen';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('../assets/fonts/silkscreen-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Silkscreen';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('../assets/fonts/silkscreen-700.woff2') format('woff2');
+}
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+
+  --ink: var(--black);
+  --paper: var(--white);
+
+  --border: 1px solid var(--black);
+  --border-w: 1px;
+
+  --shadow-hard: 2px 2px 0 0 var(--black);
+  --shadow-hard-lg: 3px 3px 0 0 var(--black);
+
+  --grid: 8px;
+  --u1: 2px;
+  --u2: 4px;
+  --u3: 6px;
+  --u4: 8px;
+  --u6: 12px;
+  --u8: 16px;
+  --u12: 24px;
+
+  --font-chrome: 'Silkscreen', 'Chicago', 'Geneva', 'Courier New', monospace;
+  --font-card: 'Geneva', 'Verdana', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'Monaco', 'Consolas', 'Courier New', monospace;
+
+  --fs-chrome: 8px;
+  --fs-chrome-lg: 10px;
+  --fs-menu: 10px;
+  --fs-card: 13px;
+
+  --row-h: 18px;
+  --menubar-h: 22px;
+  --toolbar-h: 30px;
+  --rail-w: 138px;
+  --inspector-w: 200px;
+  --palette-h: 42px;
+
+  --tool-size: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--black);
+  color: var(--ink);
+  font-family: var(--font-chrome);
+  font-size: var(--fs-chrome);
+  line-height: 1.4;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+  text-rendering: geometricPrecision;
+  overflow: hidden;
+}
+
+img,
+svg {
+  image-rendering: pixelated;
+}
+
+::selection {
+  background: var(--black);
+  color: var(--white);
+}
