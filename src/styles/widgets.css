@@ -164,18 +164,18 @@
   position: absolute;
   top: 2px;
   right: 2px;
-  width: 14px;
-  height: 14px;
-  display: grid;
-  place-items: center;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--white);
   border: 1px solid var(--black);
   color: var(--black);
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1;
   padding: 0;
   cursor: pointer;
-  box-shadow: 1px 1px 0 0 var(--black);
   z-index: 2;
 }
 

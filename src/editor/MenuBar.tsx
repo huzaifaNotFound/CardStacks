@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../app/store'
 import { PALETTE_ORDER, WIDGETS } from '../widgets/registry'
-import { IconLogo } from './icons'
 import { TOOLS } from './tools/types'
 
 export interface MenuCommands {
@@ -132,10 +131,7 @@ export default function MenuBar({ cmd }: { cmd: MenuCommands }) {
   return (
     <div className="menubar" ref={barRef}>
       <button className="menubar-title home-btn" onClick={cmd.onGoHome} title="Home">
-        <span className="home-btn-mark">
-          <IconLogo />
-        </span>
-        CARDSTACKS
+        <img className="menubar-logo" src="/logo/cardstacks-wordmark.png" alt="CardStacks" />
       </button>
 
       {Object.keys(menus).map((name) => (

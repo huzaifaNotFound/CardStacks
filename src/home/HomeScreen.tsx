@@ -4,7 +4,7 @@ import type { MenuCommands } from '../editor/MenuBar'
 import { deleteStackFromLocal, loadIndex, loadStackFromLocal, type IndexEntry } from '../io/persist'
 import { EXAMPLES, type Example } from '../stacks/examples'
 import { validateStack } from '../model/validate'
-import { IconCard, IconLogo } from '../editor/icons'
+import { IconCard } from '../editor/icons'
 import { EXAMPLE_ICONS } from './icons'
 
 interface Props {
@@ -106,10 +106,7 @@ export default function HomeScreen({ cmd }: Props) {
     <div className="app-window home-window col">
       <div className="menubar" ref={barRef}>
         <button className="menubar-title home-btn" onClick={() => setView('home')} title="Home">
-          <span className="home-btn-mark">
-            <IconLogo />
-          </span>
-          CARDSTACKS
+          <img className="menubar-logo" src="/logo/cardstacks-wordmark.png" alt="CardStacks" />
         </button>
 
         {Object.keys(menus).map((name) => (

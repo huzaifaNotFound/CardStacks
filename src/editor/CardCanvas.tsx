@@ -12,7 +12,6 @@ type DragState =
   | { mode: 'move'; id: string; sx: number; sy: number; rx: number; ry: number; rw: number; rh: number }
   | { mode: 'resize'; id: string; sx: number; sy: number; rx: number; ry: number; rw: number; rh: number }
   | { mode: 'shape'; shape: 'rect' | 'oval' | 'line'; filled: boolean; x0: number; y0: number; cx: number; cy: number }
-  | { mode: 'marquee'; x0: number; y0: number; cx: number; cy: number }
   | { mode: 'draw'; lx: number; ly: number; size: number; erase: boolean }
 
 interface Preview {
@@ -21,7 +20,6 @@ interface Preview {
   w: number
   h: number
   filled: boolean
-  marquee: boolean
 }
 
 const SNAP = 8
@@ -131,13 +129,13 @@ export default function CardCanvas() {
       dragRef.current = {
         mode: 'shape',
         shape: info.shape,
-        filled: Boolean(info.filled),
+        filled: false,
         x0: x,
         y0: y,
         cx: x,
         cy: y,
       }
-      setPreview({ x, y, w: 0, h: 0, filled: Boolean(info.filled), marquee: false })
+      setPreview({ x, y, w: 0, h: 0, filled: false })
       return
     }
 
@@ -148,12 +146,6 @@ export default function CardCanvas() {
       ty = clamp(ty, 0, size.h - 12)
       insertWidget(newWidget('text', tx, ty))
       setTool('widgets')
-      return
-    }
-
-    if (tool === 'select') {
-      dragRef.current = { mode: 'marquee', x0: x, y0: y, cx: x, cy: y }
-      setPreview({ x, y, w: 0, h: 0, filled: false, marquee: true })
       return
     }
 
@@ -233,26 +225,18 @@ export default function CardCanvas() {
         updateWidget(d.id, { w: nw, h: nh }, { transient: true })
         break
       }
-      case 'shape':
-      case 'marquee': {
+      case 'shape': {
         d.cx = x
         d.cy = y
         const nx = Math.min(d.x0, x)
         const ny = Math.min(d.y0, y)
         let nw = Math.abs(x - d.x0)
         let nh = Math.abs(y - d.y0)
-        if (d.mode === 'shape' && snapToGrid) {
+        if (snapToGrid) {
           nw = Math.max(MIN, snap(nw))
           nh = Math.max(MIN, snap(nh))
         }
-        setPreview({
-          x: nx,
-          y: ny,
-          w: nw,
-          h: nh,
-          filled: d.mode === 'shape' && d.filled,
-          marquee: d.mode === 'marquee',
-        })
+        setPreview({ x: nx, y: ny, w: nw, h: nh, filled: d.filled })
         break
       }
     }
@@ -288,18 +272,6 @@ export default function CardCanvas() {
         w.props.filled = d.filled
         insertWidget(w)
         setTool('widgets')
-        break
-      }
-      case 'marquee': {
-        const px = Math.min(d.x0, d.cx)
-        const py = Math.min(d.y0, d.cy)
-        const pw = Math.abs(d.cx - d.x0)
-        const ph = Math.abs(d.cy - d.y0)
-        const hits = card.widgets.filter(
-          (w) => px < w.x + w.w && px + pw > w.x && py < w.y + w.h && py + ph > w.y,
-        )
-        if (hits.length) selectWidget(hits[hits.length - 1].id)
-        else selectWidget(null)
         break
       }
     }
@@ -347,7 +319,10 @@ export default function CardCanvas() {
             className="sel-overlay"
             style={{ left: selected.x, top: selected.y, width: selected.w, height: selected.h }}
           >
-            <span className="sel-tag">
+            <span
+              className="sel-tag"
+              style={selected.y < 18 ? { top: selected.h + 1 } : undefined}
+            >
               {selected.name || selected.type} {selected.id.slice(-4)}
             </span>
             <span className="sel-handle" />
@@ -356,7 +331,7 @@ export default function CardCanvas() {
 
         {preview && (
           <div
-            className={`drag-preview${preview.filled ? ' filled' : ''}${preview.marquee ? ' marquee' : ''}`}
+            className={`drag-preview${preview.filled ? ' filled' : ''}`}
             style={{ left: preview.x, top: preview.y, width: preview.w, height: preview.h }}
           />
         )}

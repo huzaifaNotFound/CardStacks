@@ -14,16 +14,13 @@ import {
 export type View = 'home' | 'editor' | 'run'
 
 export type Tool =
-  | 'interact'
   | 'widgets'
-  | 'select'
+  | 'interact'
   | 'pencil'
   | 'eraser'
   | 'line'
   | 'box'
-  | 'boxFilled'
   | 'oval'
-  | 'ovalFilled'
   | 'text'
 
 const HISTORY_LIMIT = 40
@@ -133,7 +130,7 @@ export const useStore = create<Store>((set, get) => ({
   setTool: (tool) =>
     set((s) => ({
       tool,
-      selectedWidgetId: tool === 'widgets' || tool === 'select' ? s.selectedWidgetId : null,
+      selectedWidgetId: tool === 'widgets' ? s.selectedWidgetId : null,
     })),
   toggleGrid: () => set((s) => ({ showGrid: !s.showGrid })),
   toggleSnap: () => set((s) => ({ snapToGrid: !s.snapToGrid })),

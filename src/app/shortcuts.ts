@@ -8,16 +8,13 @@ interface ShortcutCommands {
 }
 
 const TOOL_DIGITS: Record<string, Tool> = {
-  '1': 'interact',
-  '2': 'widgets',
-  '3': 'select',
-  '4': 'pencil',
-  '5': 'eraser',
-  '6': 'line',
-  '7': 'box',
-  '8': 'boxFilled',
-  '9': 'oval',
-  '0': 'ovalFilled',
+  '1': 'widgets',
+  '2': 'interact',
+  '3': 'pencil',
+  '4': 'eraser',
+  '5': 'line',
+  '6': 'box',
+  '7': 'oval',
 }
 
 /** Global keyboard shortcuts. Never hijack while the user is typing. */

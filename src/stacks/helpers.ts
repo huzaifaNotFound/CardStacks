@@ -36,8 +36,17 @@ export function text(
   w: number,
   h: number,
   props: Partial<Record<string, unknown>> = {},
+  opts: { name?: string; visible?: boolean } = {},
 ): Widget {
-  return widget('text', { content, fontSize: 16, align: 'left', bold: false, italic: false, ...props }, x, y, w, h)
+  return widget(
+    'text',
+    { content, fontSize: 16, align: 'left', bold: false, italic: false, ...props },
+    x,
+    y,
+    w,
+    h,
+    { name: opts.name, visible: opts.visible === false ? false : undefined },
+  )
 }
 
 export function button(
