@@ -17,25 +17,6 @@ A modern HyperCard-inspired visual creation tool. Build interactive "stacks" of 
 - Premade example stacks: Birthday Card Maker, The Lost Lighthouse, Rock Paper Scissors, Notes, Paint, To-Do, Portfolio
 - 1-bit pixel-art assets generated for the examples and embedded as data URIs
 
-## Getting started
-
-```bash
-npm install
-npm run dev        # start the dev server
-```
-
-## Commands
-
-| Command | What it does |
-|---|---|
-| `npm run dev` | Start the Vite dev server |
-| `npm run build` | Type-check and build for production |
-| `npm run preview` | Preview the production build |
-| `npm run typecheck` | Type-check only |
-| `npm run verify` | Run all checks: typecheck, tests, export pipeline, build |
-| `npm run test:runtime` | Unit tests for the standalone runtime |
-| `npm run test:stacks` | Validate all premade stacks |
-| `npm run test:export` | Build and verify the HTML export pipeline |
 
 ## Data model
 
